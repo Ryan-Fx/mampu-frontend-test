@@ -1,6 +1,21 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Mampu Frontend Test
 
-## Getting Started
+Project technical assessment untuk posisi Junior Frontend Developer di **PT Mampu Inovasi Digital**.  
+Project ini dibangun menggunakan **Next.js 15**, **TypeScript**, dan **Tailwind CSS** 
+
+---
+
+## 🚀 Tech Stack
+
+| Category | Tools / Libraries |
+|---------|-------------------|
+| Framework | Next.js 16 (App Router) |
+| Language | TypeScript |
+| Styling | Tailwind CSS |
+| UI Components | Shadcn UI |
+| API | JSONPlaceholder (Public Fake API) |
+
+---
 
 First, run the development server:
 
