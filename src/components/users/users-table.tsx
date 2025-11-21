@@ -38,7 +38,7 @@ export default function UsersTable({ users }: UsersProps) {
 
   return (
     <section className="space-y-4">
-      {/* Search + Sort Controls */}
+      {/* search + sort Controls */}
       <div className="flex flex-col md:flex-row gap-3 md:items-center md:justify-between relative">
         <Input
           type="text"
@@ -55,14 +55,14 @@ export default function UsersTable({ users }: UsersProps) {
         </Button>
       </div>
 
-      {/* Empty State */}
+      {/* empty state */}
       {filteredUsers.length === 0 && (
         <p className="text-gray-500 text-center py-10">No users found.</p>
       )}
 
-      {/* Responsive Table */}
+      {/* responsive table */}
       <div className="overflow-x-auto">
-        {/* Desktop Table */}
+        {/* desktop table */}
         <Table className="hidden md:table">
           <TableCaption>User List</TableCaption>
           <TableHeader>
@@ -92,7 +92,7 @@ export default function UsersTable({ users }: UsersProps) {
           </TableBody>
         </Table>
 
-        {/* Mobile Card View */}
+        {/* mobile card view */}
         <div className="md:hidden space-y-3">
           {filteredUsers.map((user) => (
             <Link
