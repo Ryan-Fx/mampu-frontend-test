@@ -1,54 +1,41 @@
-// src/app/users/[id]/page.tsx
-
-import { Metadata } from "next";
 import Link from "next/link";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { getUserDetail } from "@/lib/api";
+import { Metadata } from "next";
 
-interface UserDetail {
-  id: number;
-  name: string;
-  username: string;
-  email: string;
-  phone: string;
-  website: string;
-  company: {
-    name: string;
-    catchPhrase: string;
-  };
-  address: {
-    street: string;
-    suite: string;
-    city: string;
-    zipcode: string;
-  };
-}
-
-// ---- SEO Metadata ----
 export async function generateMetadata({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }): Promise<Metadata> {
-  const user = await fetch(
-    `https://jsonplaceholder.typicode.com/users/${params.id}`
-  ).then((res) => res.json());
+  const { id } = await params;
+  const user = await getUserDetail(Number(id));
 
   return {
-    title: `${user.name} | User Details`,
-    description: `Details and profile info for user ${user.name}`,
+    title: `${user.name} | User Detail`,
+    description: `Detail information for user ${user.name} including email, phone, company, and address.`,
+    openGraph: {
+      title: `${user.name} | User Detail`,
+      description: `Profile page for ${user.name}`,
+      url: `/users/${id}`,
+      type: "article",
+    },
+    twitter: {
+      card: "summary",
+      title: `${user.name} | User Detail`,
+      description: `Profile information for ${user.name}.`,
+    },
   };
 }
 
-// ---- Main Page ----
 export default async function UserDetailPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
-  const user: UserDetail = await fetch(
-    `https://jsonplaceholder.typicode.com/users/${params.id}`
-  ).then((res) => res.json());
+  const { id } = await params;
+  const user = await getUserDetail(Number(id));
 
   return (
     <div className="container mx-auto py-6 space-y-4">

@@ -43,12 +43,12 @@ export default function UsersTable({ users }: UsersProps) {
         <Input
           type="text"
           placeholder="Search name or email..."
-          className="w-full md:w-72 pl-8"
+          className="w-full md:w-72 md:pl-8"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />
 
-        <Search className="hidden md:inline-block absolute size-5 left-2 top-1/2 -translate-y-1/2 text-gray-500" />
+        <Search className="hidden md:inline-block md:absolute md:size-4 size-5 left-2 top-1/2 -translate-y-1/2 text-gray-500" />
 
         <Button variant="outline" onClick={() => setSortAsc((prev) => !prev)}>
           Sort by Name ({sortAsc ? "A → Z" : "Z → A"})
@@ -61,52 +61,58 @@ export default function UsersTable({ users }: UsersProps) {
       )}
 
       {/* responsive table */}
-      <div className="overflow-x-auto">
-        {/* desktop table */}
-        <Table className="hidden md:table">
-          <TableCaption>User List</TableCaption>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Name</TableHead>
-              <TableHead>Email</TableHead>
-              <TableHead>Website</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {filteredUsers.map((user) => (
-              <TableRow
-                key={user.id}
-                className="hover:bg-muted/60 cursor-pointer transition-colors"
-                role="button"
-                tabIndex={0}
-                onClick={() => router.push(`/users/${user.id}`)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") router.push(`/users/${user.id}`);
-                }}
-              >
-                <TableCell className="py-4">{user.name}</TableCell>
-                <TableCell>{user.email}</TableCell>
-                <TableCell className="text-blue-500">{user.website}</TableCell>
+      {filteredUsers.length > 0 && (
+        <div className="overflow-x-auto">
+          {/* desktop table */}
+          <Table className="hidden md:table">
+            <TableCaption>User List</TableCaption>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Name</TableHead>
+                <TableHead>Email</TableHead>
+                <TableHead>Website</TableHead>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+            </TableHeader>
+            <TableBody>
+              {filteredUsers.map((user) => (
+                <TableRow
+                  key={user.id}
+                  className="hover:bg-muted/60 cursor-pointer transition-colors"
+                  role="button"
+                  tabIndex={0}
+                  onClick={() => router.push(`/users/${user.id}`)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") router.push(`/users/${user.id}`);
+                  }}
+                >
+                  <TableCell className="py-4">{user.name}</TableCell>
+                  <TableCell>{user.email}</TableCell>
+                  <TableCell className="text-blue-500">
+                    {user.website}
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
 
-        {/* mobile card view */}
-        <div className="md:hidden space-y-3">
-          {filteredUsers.map((user) => (
-            <Link
-              key={user.id}
-              href={`/users/${user.id}`}
-              className="block border rounded p-3 shadow-md hover:bg-muted transition-colors"
-            >
-              <p className="font-medium">{user.name}</p>
-              <p className="text-sm text-gray-600">{user.email}</p>
-              <p className="text-sm text-blue-500 break-all">{user.website}</p>
-            </Link>
-          ))}
+          {/* mobile card view */}
+          <div className="md:hidden space-y-3">
+            {filteredUsers.map((user) => (
+              <Link
+                key={user.id}
+                href={`/users/${user.id}`}
+                className="block border rounded p-3 shadow-md hover:bg-muted transition-colors"
+              >
+                <p className="font-medium">{user.name}</p>
+                <p className="text-sm text-gray-600">{user.email}</p>
+                <p className="text-sm text-blue-500 break-all">
+                  {user.website}
+                </p>
+              </Link>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
     </section>
   );
 }
