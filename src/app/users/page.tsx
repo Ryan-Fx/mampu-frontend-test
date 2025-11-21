@@ -1,5 +1,12 @@
 import UsersTable from "@/components/users/users-table";
 import { getUsers } from "@/lib/api";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Users List | Ryan App",
+  description:
+    "Browse a list of users fetched from JSONPlaceholder. Includes name, email, and website displayed in a responsive table format.",
+};
 
 export default async function UserPage() {
   const users = await getUsers();
