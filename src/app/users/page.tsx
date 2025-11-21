@@ -1,5 +1,8 @@
-import React from "react";
+import { getUsers } from "@/lib/api";
 
-export default function UserPage() {
+export default async function UserPage() {
+  const users = await getUsers();
+  console.log(users);
+
   return <div>UserPage</div>;
 }
