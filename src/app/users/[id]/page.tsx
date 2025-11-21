@@ -3,6 +3,13 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { getUserDetail } from "@/lib/api";
 import { Metadata } from "next";
+import { Poppins } from "next/font/google";
+import { cn } from "@/lib/utils";
+
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+});
 
 export async function generateMetadata({
   params,
@@ -15,17 +22,6 @@ export async function generateMetadata({
   return {
     title: `${user.name} | User Detail`,
     description: `Detail information for user ${user.name} including email, phone, company, and address.`,
-    openGraph: {
-      title: `${user.name} | User Detail`,
-      description: `Profile page for ${user.name}`,
-      url: `/users/${id}`,
-      type: "article",
-    },
-    twitter: {
-      card: "summary",
-      title: `${user.name} | User Detail`,
-      description: `Profile information for ${user.name}.`,
-    },
   };
 }
 
@@ -38,12 +34,17 @@ export default async function UserDetailPage({
   const user = await getUserDetail(Number(id));
 
   return (
-    <div className="container mx-auto py-6 space-y-4">
-      <Link href="/users">
-        <Button variant="outline">⬅ Back to list</Button>
-      </Link>
+    <div
+      className={cn(
+        "container mx-auto py-6 space-y-4 p-4 lg:p-8",
+        poppins.className
+      )}
+    >
+      <Button asChild variant="outline">
+        <Link href="/users">Back to Users</Link>
+      </Button>
 
-      <Card className="max-w-xl mx-auto">
+      <Card className="max-w-xl mx-auto shadow-2xl">
         <CardHeader>
           <CardTitle className="text-xl">{user.name}</CardTitle>
         </CardHeader>
