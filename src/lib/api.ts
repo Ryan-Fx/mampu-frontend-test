@@ -7,5 +7,7 @@ export async function getUsers(): Promise<User[]> {
     next: { revalidate: 60 },
   });
 
+  if (!res.ok) throw new Error("Failed to fetch users");
+
   return res.json();
 }
