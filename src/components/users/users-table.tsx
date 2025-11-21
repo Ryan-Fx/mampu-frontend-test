@@ -38,7 +38,7 @@ export default function UsersTable({ users }: UsersProps) {
 
   return (
     <section className="space-y-4">
-      {/* search + sort Controls */}
+      {/* search + sort controls */}
       <div className="flex flex-col md:flex-row gap-3 md:items-center md:justify-between relative">
         <Input
           type="text"

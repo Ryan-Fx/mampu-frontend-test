@@ -46,45 +46,52 @@ export default async function UserDetailPage({
 
       <Card className="max-w-xl mx-auto shadow-2xl">
         <CardHeader>
-          <CardTitle className="text-xl">{user.name}</CardTitle>
+          <CardTitle className="text-xl font-semibold text-center">
+            {user.name}
+          </CardTitle>
         </CardHeader>
 
-        <CardContent className="space-y-3">
-          <p>
-            <strong>Username:</strong> {user.username}
-          </p>
-          <p>
-            <strong>Email:</strong> {user.email}
-          </p>
-          <p>
-            <strong>Phone:</strong> {user.phone}
-          </p>
-
-          <p>
-            <strong>Website:</strong>{" "}
-            <a
-              href={`https://${user.website}`}
-              target="_blank"
-              className="text-blue-600 underline"
-            >
-              {user.website}
-            </a>
-          </p>
-
-          <div>
-            <strong>Company:</strong>
-            <p className="ml-2">{user.company.name}</p>
-            <p className="ml-2 italic text-sm">{user.company.catchPhrase}</p>
+        <CardContent className="space-y-4 text-sm max-w-3xl">
+          <div className="space-y-1">
+            <p>
+              <strong>Username:</strong> {user.username}
+            </p>
+            <p>
+              <strong>Email:</strong> {user.email}
+            </p>
+            <p>
+              <strong>Phone:</strong> {user.phone}
+            </p>
+            <p>
+              <strong>Website:</strong>{" "}
+              <a
+                href={`https://${user.website}`}
+                target="_blank"
+                className="text-blue-600 underline hover:opacity-80"
+              >
+                {user.website}
+              </a>
+            </p>
           </div>
 
-          <div>
+          <div className="pt-2 border-t">
+            <strong>Company:</strong>
+            <p className="ml-2 font-medium">{user.company.name}</p>
+            <p className="ml-2 italic text-gray-600 text-xs">
+              “{user.company.catchPhrase}”
+            </p>
+          </div>
+
+          <div className="pt-2 border-t">
             <strong>Address:</strong>
-            <p className="ml-2">
-              {user.address.street}, {user.address.suite}
-            </p>
-            <p className="ml-2">
-              {user.address.city}, {user.address.zipcode}
-            </p>
+            <div className="ml-2 text-gray-700 text-sm">
+              <p>
+                {user.address.street}, {user.address.suite}
+              </p>
+              <p>
+                {user.address.city}, {user.address.zipcode}
+              </p>
+            </div>
           </div>
         </CardContent>
       </Card>
