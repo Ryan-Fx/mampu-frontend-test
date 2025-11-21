@@ -1,8 +1,16 @@
+import UsersTable from "@/components/users/users-table";
 import { getUsers } from "@/lib/api";
 
 export default async function UserPage() {
   const users = await getUsers();
-  console.log(users);
+  // console.log(users);
 
-  return <div>UserPage</div>;
+  return (
+    <main className="w-full p-4 lg:p-8">
+      <div>
+        <h1 className="text-3xl font-semibold text-center">Users List</h1>
+        <UsersTable users={users} />
+      </div>
+    </main>
+  );
 }
