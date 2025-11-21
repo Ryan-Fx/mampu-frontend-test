@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/table";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
+import { Search } from "lucide-react";
 
 interface usersProps {
   users: User[];
@@ -35,14 +36,16 @@ export default function UsersTable({ users }: usersProps) {
   return (
     <section className="space-y-4">
       {/* Search + Sort Controls */}
-      <div className="flex flex-col md:flex-row gap-3 md:items-center lg:justify-between">
+      <div className="flex flex-col md:flex-row gap-3 md:items-center md:justify-between relative">
         <Input
           type="text"
           placeholder="Search name or email..."
-          className="w-full md:w-72"
+          className="w-full md:w-72 pl-8"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />
+
+        <Search className="hidden md:inline-block absolute size-5 left-2 top-1/2 -translate-y-1/2" />
 
         <Button variant="outline" onClick={() => setSortAsc((prev) => !prev)}>
           Sort by Name ({sortAsc ? "A → Z" : "Z → A"})
@@ -54,7 +57,7 @@ export default function UsersTable({ users }: usersProps) {
         <p className="text-gray-500">No users found.</p>
       )}
 
-      {/* RESPONSIVE TABLE */}
+      {/* responsive table */}
       <div className="overflow-x-auto">
         <Table className="hidden md:table">
           <TableCaption>User List</TableCaption>
@@ -79,10 +82,7 @@ export default function UsersTable({ users }: usersProps) {
         {/* Mobile List View */}
         <div className="md:hidden space-y-3">
           {filteredUsers.map((user) => (
-            <div
-              key={user.id}
-              className="border rounded p-3 shadow-sm bg-white"
-            >
+            <div key={user.id} className="border rounded p-3 shadow-md">
               <p className="font-medium">{user.name}</p>
               <p className="text-sm text-gray-600">{user.email}</p>
               <p className="text-sm text-blue-500 break-all">{user.website}</p>
