@@ -11,6 +11,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Input } from "../ui/input";
+import { Button } from "../ui/button";
 
 interface usersProps {
   users: User[];
@@ -33,21 +35,18 @@ export default function UsersTable({ users }: usersProps) {
   return (
     <section className="space-y-4">
       {/* Search + Sort Controls */}
-      <div className="flex flex-col md:flex-row gap-3 md:items-center">
-        <input
+      <div className="flex flex-col md:flex-row gap-3 md:items-center lg:justify-between">
+        <Input
           type="text"
           placeholder="Search name or email..."
-          className="border px-3 py-2 rounded w-full md:w-72"
+          className="w-full md:w-72"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />
 
-        <button
-          onClick={() => setSortAsc((prev) => !prev)}
-          className="border px-3 py-2 rounded hover:bg-gray-50 transition"
-        >
-          Sort by Name ({sortAsc ? "A→Z" : "Z→A"})
-        </button>
+        <Button variant="outline" onClick={() => setSortAsc((prev) => !prev)}>
+          Sort by Name ({sortAsc ? "A → Z" : "Z → A"})
+        </Button>
       </div>
 
       {/* Empty State */}
