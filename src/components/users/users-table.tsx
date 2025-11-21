@@ -50,7 +50,11 @@ export default function UsersTable({ users }: UsersProps) {
 
         <Search className="hidden md:inline-block md:absolute md:size-4 size-5 left-2 top-1/2 -translate-y-1/2 text-gray-500" />
 
-        <Button variant="outline" onClick={() => setSortAsc((prev) => !prev)}>
+        <Button
+          className="cursor-pointer"
+          variant="outline"
+          onClick={() => setSortAsc((prev) => !prev)}
+        >
           Sort by Name ({sortAsc ? "A → Z" : "Z → A"})
         </Button>
       </div>
