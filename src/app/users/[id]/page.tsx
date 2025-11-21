@@ -36,13 +36,13 @@ export default async function UserDetailPage({
   return (
     <div
       className={cn(
-        "container mx-auto py-6 space-y-4 p-4 lg:p-8",
+        "w-full p-4 lg:p-8 space-y-4 lg:space-y-8",
         poppins.className
       )}
     >
-      <Button asChild variant="outline">
-        <Link href="/users">Back to Users</Link>
-      </Button>
+      <h1 className="text-2xl lg:text-3xl font-semibold text-center">
+        User Detail
+      </h1>
 
       <Card className="max-w-xl mx-auto shadow-2xl">
         <CardHeader>
@@ -95,6 +95,12 @@ export default async function UserDetailPage({
           </div>
         </CardContent>
       </Card>
+
+      <div className="flex justify-center">
+        <Button variant="outline" asChild>
+          <Link href="/users">Back to Users List</Link>
+        </Button>
+      </div>
     </div>
   );
 }
