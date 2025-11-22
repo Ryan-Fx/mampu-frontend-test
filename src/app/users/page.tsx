@@ -3,7 +3,7 @@ import { getUsers } from "@/lib/api";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Users List | Ryan App",
+  title: "Ryan App | Users List",
   description:
     "Browse a list of users fetched from JSONPlaceholder. Includes name, email, and website displayed in a responsive table format.",
 };
