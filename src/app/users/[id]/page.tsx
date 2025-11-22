@@ -14,9 +14,10 @@ const poppins = Poppins({
 export async function generateMetadata({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }): Promise<Metadata> {
-  const user = await getUserDetail(Number(params.id));
+  const { id } = await params;
+  const user = await getUserDetail(Number(id));
 
   return {
     title: `${user.name} | User Detail`,
@@ -27,9 +28,10 @@ export async function generateMetadata({
 export default async function UserDetailPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
-  const user = await getUserDetail(Number(params.id));
+  const { id } = await params;
+  const user = await getUserDetail(Number(id));
 
   return (
     <main className="w-full p-4 lg:p-8">
