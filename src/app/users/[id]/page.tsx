@@ -35,8 +35,8 @@ export default async function UserDetailPage({
 
   return (
     <main className="w-full p-4 lg:p-8">
-      <div className={cn("space-y-4 lg:space-y-8", poppins.className)}>
-        <h1 className="text-2xl lg:text-3xl font-semibold text-center">
+      <div className={cn("space-y-8 lg:space-y-12", poppins.className)}>
+        <h1 className="text-xl lg:text-2xl font-semibold text-center">
           User Detail
         </h1>
 

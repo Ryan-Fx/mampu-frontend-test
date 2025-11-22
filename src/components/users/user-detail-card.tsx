@@ -7,9 +7,9 @@ interface UserDetailProps {
 
 export default function UserDetailCard({ user }: UserDetailProps) {
   return (
-    <Card className="max-w-xl mx-auto shadow-2xl">
+    <Card className="max-w-xl mx-auto shadow-2xl lg:p-10">
       <CardHeader>
-        <CardTitle className="text-xl font-semibold text-center">
+        <CardTitle className="text-lg lg:text-xl font-semibold text-center">
           {user.name}
         </CardTitle>
       </CardHeader>

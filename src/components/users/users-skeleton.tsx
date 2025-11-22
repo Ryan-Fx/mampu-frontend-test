@@ -11,7 +11,7 @@ export default function UsersSkeleton() {
           <Skeleton className="h-8 w-48 lg:h-10 lg:w-64" />
         </div>
 
-        {/* Search + Sort Controls */}
+        {/* Search + Sort Controls Skeleton */}
         <div className="flex flex-col md:flex-row gap-3 md:items-center md:justify-between">
           <Skeleton className="h-10 w-full md:w-72" />
           <Skeleton className="h-10 w-full md:w-40" />
