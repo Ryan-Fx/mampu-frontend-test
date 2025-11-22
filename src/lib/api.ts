@@ -14,6 +14,6 @@ export async function getUsers(): Promise<User[]> {
 export async function getUserDetail(id: number) {
   const res = await fetch(`${API_URL}/${id}`);
 
-  if (!res.ok) throw new Error("Failed to fetch user detail");
+  if (!res.ok) throw new Error("Temporary API issue, please try again later.");
   return res.json();
 }

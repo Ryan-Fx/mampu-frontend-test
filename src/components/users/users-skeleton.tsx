@@ -13,8 +13,8 @@ export default function UsersSkeleton() {
 
         {/* Search + Sort Controls Skeleton */}
         <div className="flex flex-col md:flex-row gap-3 md:items-center md:justify-between">
-          <Skeleton className="h-10 w-full md:w-72" />
-          <Skeleton className="h-10 w-full md:w-40" />
+          <Skeleton className="h-7 lg:h-8 w-full md:w-72" />
+          <Skeleton className="h-7 lg:h-8 w-full md:w-40" />
         </div>
 
         {/* Desktop Table Skeleton */}
@@ -23,13 +23,13 @@ export default function UsersSkeleton() {
             <thead>
               <tr className="">
                 <th className="py-2 text-left">
-                  <Skeleton className="h-4 w-20" />
+                  <Skeleton className="h-4 lg:h-6 w-20" />
                 </th>
                 <th className="py-2 text-left">
-                  <Skeleton className="h-4 w-24" />
+                  <Skeleton className="h-4 lg:h-6 w-24" />
                 </th>
                 <th className="py-2 text-left">
-                  <Skeleton className="h-4 w-20" />
+                  <Skeleton className="h-4 lg:h-6 w-20" />
                 </th>
               </tr>
             </thead>
@@ -39,13 +39,13 @@ export default function UsersSkeleton() {
               {Array.from({ length: 6 }).map((_, i) => (
                 <tr key={i}>
                   <td className="py-4">
-                    <Skeleton className="h-4 w-40" />
+                    <Skeleton className="h-4 lg:h-6 w-52" />
                   </td>
                   <td>
-                    <Skeleton className="h-4 w-52" />
+                    <Skeleton className="h-4 lg:h-6 w-52" />
                   </td>
                   <td>
-                    <Skeleton className="h-4 w-42" />
+                    <Skeleton className="h-4 lg:h-6 w-42" />
                   </td>
                 </tr>
               ))}

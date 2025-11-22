@@ -81,7 +81,7 @@ export default function UsersTable({ users }: UsersProps) {
               {filteredUsers.map((user) => (
                 <TableRow
                   key={user.id}
-                  className="hover:bg-muted/60 cursor-pointer transition-colors"
+                  className="cursor-pointer"
                   role="button"
                   tabIndex={0}
                   onClick={() => router.push(`/users/${user.id}`)}

@@ -15,10 +15,13 @@ export default function UserDetailSkeleton() {
         {/* Card Skeleton */}
         <div className="max-w-xl mx-auto border rounded-lg p-6 shadow-sm space-y-5">
           {/* Name */}
+          <Skeleton className="h-5 lg:h-6 w-52 mx-auto mb-8" />
+
+          {/* Username */}
           <Skeleton className="h-5 w-40" />
 
           {/* Email */}
-          <Skeleton className="h-5 w-60" />
+          <Skeleton className="h-5 w-52 lg:w-60" />
 
           {/* Phone */}
           <Skeleton className="h-5 w-44" />
