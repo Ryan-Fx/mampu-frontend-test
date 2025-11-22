@@ -1,7 +1,4 @@
-"use client";
-
 import { Skeleton } from "@/components/ui/skeleton";
-import { Button } from "@/components/ui/button";
 
 export default function UserDetailSkeleton() {
   return (
@@ -9,44 +6,50 @@ export default function UserDetailSkeleton() {
       <div className="space-y-6 lg:space-y-10">
         {/* Heading */}
         <div className="flex justify-center">
-          <Skeleton className="h-8 w-44 lg:h-10 lg:w-56" />
+          <Skeleton
+            className="h-8 w-44 lg:h-10 lg:w-56"
+            data-testid="skeleton"
+          />
         </div>
 
         {/* Card Skeleton */}
         <div className="max-w-xl mx-auto border rounded-lg p-6 shadow-sm space-y-5">
           {/* Name */}
-          <Skeleton className="h-5 lg:h-6 w-52 mx-auto mb-8" />
+          <Skeleton
+            className="h-5 lg:h-6 w-52 mx-auto mb-8"
+            data-testid="skeleton"
+          />
 
           {/* Username */}
-          <Skeleton className="h-5 w-40" />
+          <Skeleton className="h-5 w-40" data-testid="skeleton" />
 
           {/* Email */}
-          <Skeleton className="h-5 w-52 lg:w-60" />
+          <Skeleton className="h-5 w-52 lg:w-60" data-testid="skeleton" />
 
           {/* Phone */}
-          <Skeleton className="h-5 w-44" />
+          <Skeleton className="h-5 w-44" data-testid="skeleton" />
 
           {/* Website */}
-          <Skeleton className="h-5 w-48" />
+          <Skeleton className="h-5 w-48" data-testid="skeleton" />
 
           {/* Company */}
           <div className="space-y-2">
-            <Skeleton className="h-4 w-32" />
-            <Skeleton className="h-4 w-40" />
-            <Skeleton className="h-4 w-48" />
+            <Skeleton className="h-4 w-32" data-testid="skeleton" />
+            <Skeleton className="h-4 w-40" data-testid="skeleton" />
+            <Skeleton className="h-4 w-48" data-testid="skeleton" />
           </div>
 
           {/* Address */}
           <div className="space-y-2">
-            <Skeleton className="h-4 w-32" />
-            <Skeleton className="h-4 w-40" />
-            <Skeleton className="h-4 w-40" />
+            <Skeleton className="h-4 w-32" data-testid="skeleton" />
+            <Skeleton className="h-4 w-40" data-testid="skeleton" />
+            <Skeleton className="h-4 w-40" data-testid="skeleton" />
           </div>
         </div>
 
-        {/* Back Button skeleton sizing match */}
+        {/* Back Button skeleton */}
         <div className="flex justify-center">
-          <Skeleton className="h-8 w-48 rounded-md" />
+          <Skeleton className="h-8 w-48 rounded-md" data-testid="skeleton" />
         </div>
       </div>
     </main>
