@@ -36,7 +36,7 @@ export default function UsersSkeleton() {
 
             {/* Skeleton Rows */}
             <tbody>
-              {Array.from({ length: 6 }).map((_, i) => (
+              {Array.from({ length: 8 }).map((_, i) => (
                 <tr key={i}>
                   <td className="py-4">
                     <Skeleton className="h-4 lg:h-6 w-52" />
