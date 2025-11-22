@@ -45,7 +45,7 @@ export default function Home() {
         Tech stack: Next.js 16, TypeScript, Tailwind CSS, Shadcn UI, Jest + RTL.
       </p>
 
-      <div className="grid gap-6 md:grid-cols-2">
+      <div className="grid gap-4 lg:gap-6 md:grid-cols-2">
         {tasks.map((task, index) => (
           <div
             key={index}
