@@ -99,7 +99,7 @@ describe("UsersTable", () => {
     expect(screen.queryByTestId("desktop-user-row-2")).toBeNull();
     expect(screen.queryByTestId("desktop-user-row-3")).toBeNull();
 
-    // reset search → semua muncul
+    // reset search - semua muncul
     fireEvent.change(searchInput, { target: { value: "" } });
     mockUsers.forEach((user) => {
       const row = screen.getByTestId(`desktop-user-row-${user.id}`);
