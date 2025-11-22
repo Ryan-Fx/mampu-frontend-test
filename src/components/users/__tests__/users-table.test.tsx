@@ -1,73 +1,109 @@
-import { render, screen, waitFor, fireEvent } from "@testing-library/react";
-import * as api from "@/lib/api";
+import { render, screen, fireEvent } from "@testing-library/react";
+import UsersTable from "../users-table";
 import type { User } from "@/types/user";
-import UserPage from "@/app/users/page";
+import { useRouter } from "next/navigation";
 
-const mockUsers: User[] = [
-  {
-    id: 1,
-    name: "Ryan",
-    username: "ryan123",
-    email: "ryan@mail.com",
-    phone: "08123456789",
-    website: "ryann.dev",
-    company: { name: "Ryan Inc", catchPhrase: "Build stuff" },
-    address: {
-      street: "Jl. Example",
-      suite: "Suite 1",
-      city: "Jakarta",
-      zipcode: "12345",
-    },
-  },
-  {
-    id: 2,
-    name: "Bella",
-    username: "bella123",
-    email: "bella@mail.com",
-    phone: "081987654321",
-    website: "bella.dev",
-    company: { name: "Bella Corp", catchPhrase: "Make things" },
-    address: {
-      street: "Jl. Test",
-      suite: "Suite 2",
-      city: "Bandung",
-      zipcode: "54321",
-    },
-  },
-];
-
-// mock getUsers
-jest.mock("@/lib/api", () => ({
-  getUsers: jest.fn(),
+jest.mock("next/navigation", () => ({
+  useRouter: jest.fn(),
 }));
 
-describe("UserPage - Render Rows", () => {
+describe("UsersTable", () => {
+  const mockUsers: User[] = [
+    {
+      id: 1,
+      name: "Leanne Graham",
+      username: "Bret",
+      email: "Sincere@april.biz",
+      address: {
+        street: "Kulas Light",
+        suite: "Apt. 556",
+        city: "Gwenborough",
+        zipcode: "92998-3874",
+      },
+      phone: "1-770-736-8031 x56442",
+      website: "hildegard.org",
+      company: {
+        name: "Romaguera-Crona",
+        catchPhrase: "Multi-layered client-server neural-net",
+      },
+    },
+    {
+      id: 2,
+      name: "Ervin Howell",
+      username: "Antonette",
+      email: "Shanna@melissa.tv",
+      address: {
+        street: "Victor Plains",
+        suite: "Suite 879",
+        city: "Wisokyburgh",
+        zipcode: "90566-7771",
+      },
+      phone: "010-692-6593 x09125",
+      website: "anastasia.net",
+      company: {
+        name: "Deckow-Crist",
+        catchPhrase: "Proactive didactic contingency",
+      },
+    },
+    {
+      id: 3,
+      name: "Clementine Bauch",
+      username: "Samantha",
+      email: "Nathan@yesenia.net",
+      address: {
+        street: "Douglas Extension",
+        suite: "Suite 847",
+        city: "McKenziehaven",
+        zipcode: "59590-4157",
+      },
+      phone: "1-463-123-4447",
+      website: "ramiro.info",
+      company: {
+        name: "Romaguera-Jacobson",
+        catchPhrase: "Face to face bifurcated interface",
+      },
+    },
+  ];
+
+  const pushMock = jest.fn();
+
   beforeEach(() => {
-    jest.resetAllMocks();
+    (useRouter as jest.Mock).mockReturnValue({ push: pushMock });
+    pushMock.mockClear();
   });
 
-  it("renders all users in the table and mobile cards", async () => {
-    // Mock API resolved value
-    (api.getUsers as jest.Mock).mockResolvedValue(mockUsers);
+  it("renders all desktop user rows", () => {
+    render(<UsersTable users={mockUsers} />);
 
-    render(<UserPage />);
+    mockUsers.forEach((user) => {
+      // Ambil row desktop
+      const row = screen.getByTestId(`desktop-user-row-${user.id}`);
+      expect(row).toBeInTheDocument();
+      expect(row).toHaveTextContent(user.name);
+      expect(row).toHaveTextContent(user.email);
+      expect(row).toHaveTextContent(user.website);
+    });
+  });
 
-    // Tunggu sampai user muncul di DOM
-    await waitFor(() => {
-      // Desktop table check
-      expect(screen.getByText("Ryan")).toBeInTheDocument();
-      expect(screen.getByText("Bella")).toBeInTheDocument();
+  it("filters users based on search input", () => {
+    render(<UsersTable users={mockUsers} />);
+    const searchInput = screen.getByPlaceholderText(/search name or email/i);
 
-      expect(screen.getByText("ryan@mail.com")).toBeInTheDocument();
-      expect(screen.getByText("bella@mail.com")).toBeInTheDocument();
+    // cari "Leanne"
+    fireEvent.change(searchInput, { target: { value: "Leanne" } });
+    const row = screen.getByTestId(`desktop-user-row-1`);
+    expect(row).toBeInTheDocument();
+    expect(row).toHaveTextContent("Leanne Graham");
 
-      expect(screen.getByText("ryann.dev")).toBeInTheDocument();
-      expect(screen.getByText("bella.dev")).toBeInTheDocument();
+    // yang lain tidak muncul
+    expect(screen.queryByTestId("desktop-user-row-2")).toBeNull();
+    expect(screen.queryByTestId("desktop-user-row-3")).toBeNull();
 
-      // Mobile card view (cek salah satu)
-      expect(screen.getAllByText(/Ryan|Bella/).length).toBeGreaterThanOrEqual(
-        2
-      );
+    // reset search → semua muncul
+    fireEvent.change(searchInput, { target: { value: "" } });
+    mockUsers.forEach((user) => {
+      const row = screen.getByTestId(`desktop-user-row-${user.id}`);
+      expect(row).toBeInTheDocument();
     });
   });
 });

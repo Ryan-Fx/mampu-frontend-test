@@ -81,6 +81,7 @@ export default function UsersTable({ users }: UsersProps) {
               {filteredUsers.map((user) => (
                 <TableRow
                   key={user.id}
+                  data-testid={`desktop-user-row-${user.id}`}
                   className="cursor-pointer"
                   role="button"
                   tabIndex={0}
@@ -105,6 +106,7 @@ export default function UsersTable({ users }: UsersProps) {
               <Link
                 key={user.id}
                 href={`/users/${user.id}`}
+                data-testid={`mobile-user-row-${user.id}`}
                 className="block border rounded p-3 shadow-md hover:bg-muted transition-colors"
               >
                 <p className="font-medium">{user.name}</p>

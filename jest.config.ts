@@ -10,6 +10,7 @@ const customJestConfig = {
   moduleDirectories: ["node_modules", "<rootDir>/src"],
   setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"],
   moduleFileExtensions: ["ts", "tsx", "js", "jsx"],
+  moduleNameMapper: { "^@/(.*)$": "<rootDir>/src/$1" },
   coverageProvider: "v8",
 };
 
