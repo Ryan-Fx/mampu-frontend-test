@@ -31,7 +31,7 @@ const tasks = [
   {
     title: "Bonus",
     description:
-      "ISR: cache users for e.g. 60s with fetch({ next: { revalidate: 60 }}).",
+      "ISR: cache users for e.g. 60s with fetch({ next: { revalidate: 60 }}). Pagination on users page (users table).",
   },
 ];
 

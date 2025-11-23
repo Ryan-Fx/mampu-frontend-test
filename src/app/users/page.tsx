@@ -14,7 +14,7 @@ export default async function UserPage() {
 
   return (
     <main className="w-full p-4 lg:p-8">
-      <div className="space-y-4 lg:space-y-6">
+      <div className="space-y-4 lg:space-y-6 pb-16">
         <h1 className="text-2xl lg:text-3xl font-semibold text-center">
           Users List
         </h1>

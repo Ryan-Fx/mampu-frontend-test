@@ -24,7 +24,11 @@ interface UsersProps {
 export default function UsersTable({ users }: UsersProps) {
   const [query, setQuery] = useState("");
   const [sortAsc, setSortAsc] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+
   const router = useRouter();
+
+  const ITEMS_PER_PAGE = 5;
 
   const filteredUsers = useMemo(() => {
     const filtered = users.filter((user) =>
@@ -36,6 +40,18 @@ export default function UsersTable({ users }: UsersProps) {
     );
   }, [users, query, sortAsc]);
 
+  const totalPages = Math.ceil(filteredUsers.length / ITEMS_PER_PAGE);
+
+  const paginatedUsers = filteredUsers.slice(
+    (currentPage - 1) * ITEMS_PER_PAGE,
+    currentPage * ITEMS_PER_PAGE
+  );
+
+  const handlePageChange = (page: number) => {
+    if (page < 1 || page > totalPages) return;
+    setCurrentPage(page);
+  };
+
   return (
     <section className="space-y-4">
       {/* search + sort controls */}
@@ -45,7 +61,10 @@ export default function UsersTable({ users }: UsersProps) {
           placeholder="Search name or email..."
           className="w-full md:w-72 md:pl-8"
           value={query}
-          onChange={(e) => setQuery(e.target.value)}
+          onChange={(e) => {
+            setCurrentPage(1);
+            setQuery(e.target.value);
+          }}
         />
 
         <Search className="hidden md:inline-block md:absolute md:size-4 size-5 left-2 top-1/2 -translate-y-1/2 text-gray-500" />
@@ -53,7 +72,10 @@ export default function UsersTable({ users }: UsersProps) {
         <Button
           className="cursor-pointer"
           variant="outline"
-          onClick={() => setSortAsc((prev) => !prev)}
+          onClick={() => {
+            setCurrentPage(1);
+            setSortAsc((prev) => !prev);
+          }}
         >
           Sort by Name ({sortAsc ? "A → Z" : "Z → A"})
         </Button>
@@ -64,60 +86,86 @@ export default function UsersTable({ users }: UsersProps) {
         <p className="text-gray-500 text-center py-10">No users found.</p>
       )}
 
-      {/* responsive table */}
       {filteredUsers.length > 0 && (
-        <div className="overflow-x-auto">
-          {/* desktop table */}
-          <Table className="hidden md:table">
-            <TableCaption>User List</TableCaption>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Name</TableHead>
-                <TableHead>Email</TableHead>
-                <TableHead>Website</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {filteredUsers.map((user) => (
-                <TableRow
-                  key={user.id}
-                  data-testid={`desktop-user-row-${user.id}`}
-                  className="cursor-pointer"
-                  role="button"
-                  tabIndex={0}
-                  onClick={() => router.push(`/users/${user.id}`)}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter") router.push(`/users/${user.id}`);
-                  }}
-                >
-                  <TableCell className="py-4">{user.name}</TableCell>
-                  <TableCell>{user.email}</TableCell>
-                  <TableCell className="text-blue-500">
-                    {user.website}
-                  </TableCell>
+        <>
+          {/* responsive table */}
+          <div className="overflow-x-auto">
+            {/* desktop table */}
+            <Table className="hidden md:table">
+              <TableCaption>User List</TableCaption>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Name</TableHead>
+                  <TableHead>Email</TableHead>
+                  <TableHead>Website</TableHead>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+              </TableHeader>
+              <TableBody>
+                {paginatedUsers.map((user) => (
+                  <TableRow
+                    key={user.id}
+                    data-testid={`desktop-user-row-${user.id}`}
+                    className="cursor-pointer"
+                    role="button"
+                    tabIndex={0}
+                    onClick={() => router.push(`/users/${user.id}`)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") router.push(`/users/${user.id}`);
+                    }}
+                  >
+                    <TableCell className="py-4">{user.name}</TableCell>
+                    <TableCell>{user.email}</TableCell>
+                    <TableCell className="text-blue-500">
+                      {user.website}
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
 
-          {/* mobile card view */}
-          <div className="md:hidden space-y-3">
-            {filteredUsers.map((user) => (
-              <Link
-                key={user.id}
-                href={`/users/${user.id}`}
-                data-testid={`mobile-user-row-${user.id}`}
-                className="block border rounded p-3 shadow-md hover:bg-muted transition-colors"
-              >
-                <p className="font-medium">{user.name}</p>
-                <p className="text-sm text-gray-600">{user.email}</p>
-                <p className="text-sm text-blue-500 break-all">
-                  {user.website}
-                </p>
-              </Link>
-            ))}
+            {/* mobile card view */}
+            <div className="md:hidden space-y-3">
+              {paginatedUsers.map((user) => (
+                <Link
+                  key={user.id}
+                  href={`/users/${user.id}`}
+                  data-testid={`mobile-user-row-${user.id}`}
+                  className="block border rounded-md p-3 shadow-xl hover:bg-muted transition-colors"
+                >
+                  <p className="font-medium">{user.name}</p>
+                  <p className="text-sm text-gray-600">{user.email}</p>
+                  <p className="text-sm text-blue-500 break-all">
+                    {user.website}
+                  </p>
+                </Link>
+              ))}
+            </div>
           </div>
-        </div>
+
+          {/* pagination */}
+          <div className="fixed bottom-0 left-0 w-full bg-background border-t py-3 flex items-center justify-center gap-6 z-50">
+            <Button
+              variant="outline"
+              disabled={currentPage === 1}
+              onClick={() => handlePageChange(currentPage - 1)}
+            >
+              Prev
+            </Button>
+
+            <span className="text-sm">
+              Page <strong>{currentPage}</strong> of{" "}
+              <strong>{totalPages}</strong>
+            </span>
+
+            <Button
+              variant="outline"
+              disabled={currentPage === totalPages}
+              onClick={() => handlePageChange(currentPage + 1)}
+            >
+              Next
+            </Button>
+          </div>
+        </>
       )}
     </section>
   );
