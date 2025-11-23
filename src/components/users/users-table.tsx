@@ -124,7 +124,7 @@ export default function UsersTable({ users }: UsersProps) {
             </Table>
 
             {/* mobile card view */}
-            <div className="md:hidden space-y-3">
+            <div className="md:hidden space-y-3 py-6">
               {paginatedUsers.map((user) => (
                 <Link
                   key={user.id}
